@@ -57,7 +57,7 @@ const App = props => {
           name='description'
           content={`${themeConfig.templateName} – Test Admin.`}
         />
-        <meta name='keywords' content='Dealls Job' />
+        <meta name='keywords' content='Deall Jobs' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 

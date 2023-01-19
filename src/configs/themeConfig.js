@@ -1,6 +1,6 @@
 const themeConfig = {
   // ** Layout Configs
-  templateName: 'Dealls Job' /* App Name */,
+  templateName: 'Deall Jobs' /* App Name */,
   mode: 'light' /* light | dark */,
   contentWidth: 'boxed' /* full | boxed */,
   // ** Routing Configs

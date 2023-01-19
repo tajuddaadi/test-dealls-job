@@ -55,17 +55,6 @@ const Cart = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <TextField
-          size='small'
-          sx={{ mb: 10, '& .MuiOutlinedInput-root': { borderRadius: 4 } }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <Magnify fontSize='small' />
-              </InputAdornment>
-            )
-          }}
-        />
         <Card>
           <CardHeader title='Data Cart' titleTypographyProps={{ variant: 'h6' }} />
           <TableList

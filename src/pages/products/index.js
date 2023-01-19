@@ -5,6 +5,8 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Switch from '@mui/material/Switch'
 import Magnify from 'mdi-material-ui/Magnify'
 
 import TableList from 'src/views/tables/TableList'
@@ -19,20 +21,27 @@ const Products = () => {
   const [total, setTotal] = useState(0)
   const [query, setQuery] = useState('')
   const [brands, setBrands] = useState([])
- 
+  const [openFilter, setOpenFilter] = useState('')
+  const [productFilter, setProductFilter] = useState(null)
+
   useEffect(() => {
     getAllProducts(setProducts, setTotal, rowsPerPage, skip, query)
     getAllBrands(setBrands)
   }, [rowsPerPage, skip, query])
 
   const groupedDataBrands = brands.reduce((brands, obj) => {
-    const brand = obj.brand;
+    const brand = obj.brand
     if (!brands[brand]) {
-      brands[brand] = [];
+      brands[brand] = []
     }
-    brands[brand].push(obj);
-    return brands;
-  }, {});
+    brands[brand].push(obj)
+    return brands
+  }, {})
+
+  const handleFilterChange = event => {
+    const { name, value } = event.target
+    setProductFilter({ ...productFilter, [name]: value })
+  }
 
   const handleChange = e => {
     e.preventDefault()
@@ -73,9 +82,33 @@ const Products = () => {
     }
   ]
 
-  const valuegroupedDataBrands = Object.values(groupedDataBrands);
-  const lengthCart = valuegroupedDataBrands.map(item => item.length);
-  const filteredData = products.filter(obj => obj.brand = "Apple");
+  const valuegroupedDataBrands = Object.values(groupedDataBrands)
+  const lengthCart = valuegroupedDataBrands.map(item => item.length)
+  const filteredData = products.filter(item => {
+    if (
+      productFilter?.title === '' &&
+      productFilter?.price === '' &&
+      productFilter?.brand === '' &&
+      productFilter?.category === ''
+    ) {
+      return true
+    }
+    if (
+      productFilter?.title !== '' ||
+      productFilter?.price !== '' ||
+      productFilter?.brand !== '' ||
+      productFilter?.category !== '' 
+    ) {
+      return (
+        item.title.toLowerCase().includes(productFilter?.title?.toLowerCase()) ||
+        item.price >= parseInt(productFilter?.price) ||
+        item.brand.toLowerCase().includes(productFilter?.brand?.toLowerCase()) ||
+        item.category.toLowerCase().includes(productFilter?.category?.toLowerCase())
+      )
+    } else {
+      return true
+    }
+  })
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -91,7 +124,7 @@ const Products = () => {
                   id: 1,
                   label: '',
                   data: lengthCart
-                },
+                }
               ]
             }}
           />
@@ -112,13 +145,23 @@ const Products = () => {
         />
         <Card>
           <CardHeader title='Data Products' titleTypographyProps={{ variant: 'h6' }} />
+          <FormControlLabel
+            sx={{ padding: 5 }}
+            control={<Switch />}
+            label='Filter'
+            onChange={event => setOpenFilter(event.target.checked)}
+          />
           <TableList
-            rows={filteredData}
+            rows={productFilter ? filteredData : products}
             columns={columns}
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
             setSkip={setSkip}
             total={total}
+            filter={true}
+            openFilter={openFilter}
+            handleFilterChange={handleFilterChange}
+            productFilter={productFilter}
           />
         </Card>
       </Grid>
