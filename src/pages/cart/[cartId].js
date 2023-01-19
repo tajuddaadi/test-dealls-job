@@ -26,7 +26,6 @@ const CartId = () => {
     getUserDetail(setUser, cart?.userId)
   }, [router?.query?.cartId, cart?.userId])
 
-  console.log(cart)
   const columns = [
     { id: 'title', label: 'Product Name', minWidth: 170 },
     {

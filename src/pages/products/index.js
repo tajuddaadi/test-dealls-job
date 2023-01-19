@@ -45,11 +45,9 @@ const Products = () => {
 
   const handleChange = e => {
     e.preventDefault()
-    // setTimeout(() => {
     setQuery(e.target.value)
     localStorage.removeItem('QUERY_STATE')
     localStorage.setItem('QUERY_STATE', JSON.stringify(e.target.value))
-    // }, 300);
   }
 
   useEffect(() => {

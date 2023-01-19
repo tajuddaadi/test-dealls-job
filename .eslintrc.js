@@ -28,17 +28,14 @@ module.exports = {
     'lines-around-comment': [
       'error',
       {
-        beforeLineComment: true,
-        beforeBlockComment: true,
-        allowBlockStart: true,
-        allowClassStart: true,
-        allowObjectStart: true,
-        allowArrayStart: true
+        beforeLineComment: false,
+        beforeBlockComment: false,
+        allowBlockStart: false,
+        allowClassStart: false,
+        allowObjectStart: false,
+        allowArrayStart: false
       }
     ],
-
-    // add new line above return
-    'newline-before-return': 'error',
 
     // add new line below import
     'import/newline-after-import': [
@@ -47,12 +44,5 @@ module.exports = {
         count: 1
       }
     ],
-
-    // add new line after each var, const, let declaration
-    'padding-line-between-statements': [
-      'error',
-      { blankLine: 'always', prev: ['export'], next: ['*'] },
-      { blankLine: 'always', prev: ['*'], next: ['multiline-const', 'multiline-let', 'multiline-var', 'export'] }
-    ]
   }
 }
